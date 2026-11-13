@@ -12,21 +12,30 @@ class PantallaLogin extends StatefulWidget {
 class _PantallaLoginState extends State<PantallaLogin> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool loading = false;
 
   Future<void> iniciarSesion() async {
+    setState(() => loading = true);
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text,
       );
 
-      context.go('/principal');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Inicio de sesión correcto')));
+      // pequeña espera para que el usuario vea el snackbar
+      await Future.delayed(const Duration(milliseconds: 300));
+      if (mounted) context.go('/principal');
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.message ?? "Error al iniciar sesión."),
         ),
       );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error inesperado: ${e.toString()}')));
+    } finally {
+      if (mounted) setState(() => loading = false);
     }
   }
 
@@ -72,8 +81,8 @@ class _PantallaLoginState extends State<PantallaLogin> {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: iniciarSesion,
-                child: const Text("Iniciar sesión"),
+                onPressed: loading ? null : iniciarSesion,
+                child: loading ? const CircularProgressIndicator(color: Colors.white) : const Text("Iniciar sesión"),
               ),
             ),
           ],

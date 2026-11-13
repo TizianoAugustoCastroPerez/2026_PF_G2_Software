@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class PantallaGuia extends StatelessWidget {
-  const PantallaGuia({super.key});
+  final String? role;
+  const PantallaGuia({super.key, this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class PantallaGuia extends StatelessWidget {
                     const SizedBox(height: 10),
 
                     const Text(
-                      "En esta sección se pueden ingresar los números telefónicos que serán utilizados por la aplicación. Los contactos pueden ordenarse según la prioridad con la que serán utilizados en caso de ser necesario.",
+                      "Se pueden ingresar los números telefónicos que serán utilizados por la aplicación. Los contactos pueden ordenarse según la prioridad con la que serán utilizados en caso de ser necesario.",
                       style: TextStyle(fontSize: 16),
                     ),
 
@@ -97,7 +98,13 @@ class PantallaGuia extends StatelessWidget {
               height: 55,
               child: ElevatedButton(
                 onPressed: () {
-                  context.go('/principal');
+                  if (role == 'adulto_mayor') {
+                    context.go('/principal');
+                  } else if (role == 'responsable') {
+                    context.go('/responsable');
+                  } else {
+                    context.go('/principal');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,

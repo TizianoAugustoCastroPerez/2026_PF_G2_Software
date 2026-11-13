@@ -1,0 +1,42 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "pf-g2-cuidando",
+          "appId": "1:381898743533:android:09b3730cbc50a99d95f6e4",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "pf-g2-cuidando",
+          "configurations": {
+            "android": "1:381898743533:android:09b3730cbc50a99d95f6e4",
+            "ios": "1:381898743533:ios:ac6302bc54491cee95f6e4",
+            "macos": "1:381898743533:ios:ac6302bc54491cee95f6e4",
+            "web": "1:381898743533:web:52f861c073c9cb6595f6e4",
+            "windows": "1:381898743533:web:1992671ffc44b30795f6e4"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+      "firestore": {
+        "port": 8086,
+        "rules": "firestore.rules"
+      },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    },
+    "singleProjectMode": true
+  }
+}

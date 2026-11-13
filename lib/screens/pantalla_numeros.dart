@@ -104,7 +104,9 @@ class _PantallaNumerosState extends State<PantallaNumeros> {
 
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Text("${index + 1}"),
+                        radius: 24,
+                        backgroundColor: Colors.grey[300],
+                        child: const Icon(Icons.person, color: Colors.black45),
                       ),
 
                       title: Text(

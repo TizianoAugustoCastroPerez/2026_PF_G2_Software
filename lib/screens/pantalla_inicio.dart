@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class PantallaInicio extends StatelessWidget {
-  const PantallaInicio({super.key});
+  final String? role;
+  const PantallaInicio({super.key, this.role});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.go('/');
+          },
+        ),
         title: const Text("Proyecto"),
         centerTitle: true,
       ),
@@ -16,9 +23,14 @@ class PantallaInicio extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/logo.png",
+            Container(
               height: 180,
+              width: 180,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(Icons.image, size: 80, color: Colors.black45),
             ),
 
             const SizedBox(height: 30),
@@ -42,7 +54,8 @@ class PantallaInicio extends StatelessWidget {
                       minimumSize: const Size(0, 80),
                     ),
                     onPressed: () {
-                      context.go('/login');
+                      final q = role != null ? '?role=$role' : '';
+                      context.go('/login$q');
                     },
                     child: const Text(
                       "Iniciar\nSesión",
@@ -60,7 +73,8 @@ class PantallaInicio extends StatelessWidget {
                       minimumSize: const Size(0, 80),
                     ),
                     onPressed: () {
-                      context.go('/register');
+                      final q = role != null ? '?role=$role' : '';
+                      context.go('/register$q');
                     },
                     child: const Text(
                       "Registrarse",
